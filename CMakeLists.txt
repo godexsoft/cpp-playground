@@ -40,5 +40,5 @@ if (san)
   target_link_libraries(clio_options INTERFACE ${SAN_FLAG} ${SAN_LIB})
 endif ()
 
-add_executable(playground src/main.cpp)
-target_link_libraries(playground clio_options boost::boost gtest::gtest)
+add_executable(playground_tests tests/unit/Main.cpp tests/unit/timer.cpp)
+target_link_libraries(playground_tests clio_options boost::boost gtest::gtest)
