@@ -45,9 +45,8 @@ TEST_F(TimerTest, DoesNotWork) {
 
         while (running_) {
           timer.expires_after(std::chrono::milliseconds{1});
-          auto token = cancelSignal_.slot();
-          auto test = boost::asio::bind_cancellation_slot(token, yield[ec]);
-          timer.async_wait(test);
+          timer.async_wait(boost::asio::bind_cancellation_slot(
+              cancelSignal_.slot(), yield[ec]));
 
           if (ec == boost::asio::error::operation_aborted)
             break;
@@ -75,9 +74,8 @@ TEST_F(TimerTest, WorksButSharedPtr) {
 
         while (running_) {
           timer->expires_after(std::chrono::milliseconds{1});
-          auto token = cancelSignal_.slot();
-          timer->async_wait(
-              boost::asio::bind_cancellation_slot(token, yield[ec]));
+          timer->async_wait(boost::asio::bind_cancellation_slot(
+              cancelSignal_.slot(), yield[ec]));
 
           if (ec == boost::asio::error::operation_aborted or not running_)
             break;
