@@ -13,7 +13,7 @@ class PlaygroundConan(ConanFile):
     }
 
     requires = [
-        'boost/1.83.0',
+        'boost/1.88.0',
         'gtest/1.14.0'
     ]
 
